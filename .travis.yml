@@ -1,0 +1,24 @@
+language: r
+cache: packages
+
+r:
+  - oldrel
+  - release
+  - devel
+
+r_packages:
+  - covr
+
+addons:
+  apt:
+    packages:
+      - libv8-dev
+
+## Only run covr on release
+after_success:
+  - Rscript -e "if(length(grep('2\$', ${TRAVIS_JOB_NUMBER}))) covr::codecov()";
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
