@@ -1,0 +1,33 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+## HTML minifier
+
+A binding to the HTML Javascript minifier library: [html-minifier](https://github.com/kangax/html-minifier)
+
+### Usage
+
+To install
+
+```{r eval=FALSE}
+devtools::install_git("csgillespie/minifyHTML")
+```
+
+To use
+```{r}
+library(minifyHTML)
+input = "<!-- foo --><div>baz</div><!-- bar\n\n moo -->"
+minifyHTML(input)
+minifyHTML(input, removeComments = TRUE)
+```

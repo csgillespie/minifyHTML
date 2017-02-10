@@ -1,4 +1,4 @@
-Package: htmlmin
+Package: minifyHTML
 Type: Package
 Title: HTML Minifier
 Version: 0.1.0

@@ -87,7 +87,7 @@ minifyHTML = function(input,
                   useShortDoctype = TRUE){
 
   ## Drop function name and input
-  args = as.list(match.call())[-1:-2]
+  args = as.list(environment())[-1]
 
   ## Rename
   args = lapply(args, function(arg) {
@@ -100,5 +100,5 @@ minifyHTML = function(input,
   }
   js = paste0("{", js, "}", collapse = " ")
 
-  ctx$call("require('html-minifier').minify", input, V8::JS(js))
+  ctx$call("require('html-minifier').minify", input)#, V8::JS(js))
 }
