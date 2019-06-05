@@ -46,7 +46,6 @@
 #' @examples
 #' input = "<!-- foo --><div>baz</div><!-- bar\n\n moo -->"
 #' minifyHTML(input)
-#' cd
 #' @export
 minifyHTML = function(input,
                   caseSensitive = FALSE,
@@ -55,7 +54,7 @@ minifyHTML = function(input,
                   collapseWhitespace = TRUE,
                   conservativeCollapse = FALSE,
                   customAttrAssign = "[]",
-                  customAttrCollapse = "",
+                  customAttrCollapse = NULL,
                   customAttrSurround = "[]",
                   customEventAttributes = "[ /^on[a-z]{3,}$/ ]",
                   decodeEntities = TRUE,
@@ -73,6 +72,7 @@ minifyHTML = function(input,
                   processConditionalComments = TRUE,
                   processScripts = "[]",
                   quoteCharacter = NULL,
+                  removeAttributeQuotes = FALSE,
                   removeComments = TRUE,
                   removeEmptyAttributes = TRUE,
                   removeEmptyElements	= FALSE,
@@ -84,21 +84,36 @@ minifyHTML = function(input,
                   sortAttributes = TRUE,
                   sortClassName = TRUE,
                   trimCustomFragments	=TRUE,
-                  useShortDoctype = TRUE){
+                  useShortDoctype = TRUE) {
 
   ## Drop function name and input
-  args = as.list(environment())[-1]
+  r_args = as.list(environment())[-1]
 
-  ## Rename
-  args = lapply(args, function(arg) {
-    if(!is.logical(arg)) return(arg)
-    if(arg) "true" else "false"
-  })
-  js = ""
-  if(length(args) > 0L) {
-    js = paste0( names(args), ": ", args, collapse = ", ")
+  if (!is.null(quoteCharacter)) {
+    warning("quoteCharacter not supported")
   }
-  js = paste0("{", js, "}", collapse = " ")
+  r_args["quoteCharacter"] = NULL
 
-  ctx$call("require('html-minifier').minify", input)#, V8::JS(js))
+  if (is.null(maxLineLength)) {
+    r_args["maxLineLength"] = NULL
+  } else {
+    r_args["maxLineLength"] = as.numeric(maxLineLength)
+  }
+
+  if (is.null(customAttrCollapse)) {
+    r_args["customAttrCollapse"] = NULL
+  }
+
+  ## Rename TRUE to true
+  r_args = lapply(r_args, function(arg) {
+    if (!is.logical(arg)) return(arg)
+    if (arg) "true" else "false"
+  })
+
+  js_args = ""
+  if (length(args) > 0L) {
+    js_args = paste0(names(r_args), ": ", r_args, collapse = ", ")
+  }
+  js_args = paste0("{", js_args, "}", collapse = " ")
+  ctx$call("require('html-minifier').minify", input, V8::JS(js_args))
 }

@@ -4,10 +4,11 @@
 \alias{minifyHTML}
 \title{HTML Minifier}
 \usage{
-minifyHTML(input, caseSensitive = FALSE, collapseBooleanAttributes = TRUE,
+minifyHTML(input, caseSensitive = FALSE,
+  collapseBooleanAttributes = TRUE,
   collapseInlineTagWhitespace = FALSE, collapseWhitespace = TRUE,
   conservativeCollapse = FALSE, customAttrAssign = "[]",
-  customAttrCollapse = "", customAttrSurround = "[]",
+  customAttrCollapse = NULL, customAttrSurround = "[]",
   customEventAttributes = "[ /^on[a-z]{3,}$/ ]", decodeEntities = TRUE,
   html5 = TRUE, ignoreCustomComments = "[ /^!/ ]",
   ignoreCustomFragments = "[ /<\%[\\\\s\\\\S]*?\%>/, /<\\\\?[,\\\\s\\\\S]*?\\\\?>/ ]",
@@ -15,13 +16,14 @@ minifyHTML(input, caseSensitive = FALSE, collapseBooleanAttributes = TRUE,
   maxLineLength = NULL, minifyCSS = TRUE, minifyJS = TRUE,
   minifyURLs = FALSE, preserveLineBreaks = FALSE,
   preventAttributesEscaping = FALSE, processConditionalComments = TRUE,
-  processScripts = "[]", quoteCharacter = NULL, removeComments = TRUE,
+  processScripts = "[]", quoteCharacter = NULL,
+  removeAttributeQuotes = FALSE, removeComments = TRUE,
   removeEmptyAttributes = TRUE, removeEmptyElements = FALSE,
   removeOptionalTags = FALSE, removeRedundantAttributes = FALSE,
-  removeScriptTypeAttributes = FALSE, removeStyleLinkTypeAttributes = FALSE,
-  removeTagWhitespace = FALSE, sortAttributes = TRUE,
-  sortClassName = TRUE, trimCustomFragments = TRUE,
-  useShortDoctype = TRUE)
+  removeScriptTypeAttributes = FALSE,
+  removeStyleLinkTypeAttributes = FALSE, removeTagWhitespace = FALSE,
+  sortAttributes = TRUE, sortClassName = TRUE,
+  trimCustomFragments = TRUE, useShortDoctype = TRUE)
 }
 \arguments{
 \item{input}{String}
@@ -74,6 +76,8 @@ minifyHTML(input, caseSensitive = FALSE, collapseBooleanAttributes = TRUE,
 
 \item{quoteCharacter}{Type of quote to use for attribute values (' or ")}
 
+\item{removeAttributeQuotes}{\href{http://perfectionkills.com/experimenting-with-html-minifier/#remove_attribute_quotes}{Remove quotes around attributes when possible}}
+
 \item{removeComments}{\href{http://perfectionkills.com/experimenting-with-html-minifier/#remove_comments}{Strip HTML comments}}
 
 \item{removeEmptyAttributes}{\href{http://perfectionkills.com/experimenting-with-html-minifier/#remove_empty_or_blank_attributes}{Remove all attributes with whitespace-only values}}
@@ -97,8 +101,6 @@ minifyHTML(input, caseSensitive = FALSE, collapseBooleanAttributes = TRUE,
 \item{trimCustomFragments}{Trim white space around \code{ignoreCustomFragments}.}
 
 \item{useShortDoctype}{\href{http://perfectionkills.com/experimenting-with-html-minifier/#use_short_doctype}{Replaces the doctype with the short (HTML5) doctype}}
-
-\item{removeAttributeQuotes}{\href{http://perfectionkills.com/experimenting-with-html-minifier/#remove_attribute_quotes}{Remove quotes around attributes when possible}}
 }
 \description{
 This function takes a text string as input and minifies it according to large number of options.
@@ -108,7 +110,6 @@ descriptions of the options.
 \examples{
 input = "<!-- foo --><div>baz</div><!-- bar\\n\\n moo -->"
 minifyHTML(input)
-cd
 }
 \seealso{
 \href{https://github.com/kangax/html-minifier}{html-minifer} github page
