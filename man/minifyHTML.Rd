@@ -7,8 +7,9 @@
 minifyHTML(input, caseSensitive = FALSE,
   collapseBooleanAttributes = TRUE,
   collapseInlineTagWhitespace = FALSE, collapseWhitespace = TRUE,
-  conservativeCollapse = FALSE, customAttrAssign = "[]",
-  customAttrCollapse = NULL, customAttrSurround = "[]",
+  conservativeCollapse = FALSE, continueOnParseError = FALSE,
+  customAttrAssign = "[]", customAttrCollapse = NULL,
+  customAttrSurround = "[]",
   customEventAttributes = "[ /^on[a-z]{3,}$/ ]", decodeEntities = TRUE,
   html5 = TRUE, ignoreCustomComments = "[ /^!/ ]",
   ignoreCustomFragments = "[ /<\%[\\\\s\\\\S]*?\%>/, /<\\\\?[,\\\\s\\\\S]*?\\\\?>/ ]",
@@ -37,6 +38,8 @@ minifyHTML(input, caseSensitive = FALSE,
 \item{collapseWhitespace}{\href{http://perfectionkills.com/experimenting-with-html-minifier/#collapse_whitespace}{Collapse white space that contributes to text nodes in a document tree}}
 
 \item{conservativeCollapse}{Always collapse to 1 space (never remove it entirely). Must be used in conjunction with \code{collapseWhitespace=true}}
+
+\item{continueOnParseError}{\href{https://html.spec.whatwg.org/multipage/parsing.html#parse-errors}{Handle parse errors} instead of aborting.}
 
 \item{customAttrAssign}{Arrays of regex'es that allow to support custom attribute assign expressions (e.g. \code{'<div flex?="{{mode != cover}}"></div>'})}
 
