@@ -10,6 +10,7 @@
 #' @param collapseInlineTagWhitespace  Don't leave any spaces between `display:inline;` elements when collapsing. Must be used in conjunction with `collapseWhitespace=TRUE`
 #' @param collapseWhitespace [Collapse white space that contributes to text nodes in a document tree](http://perfectionkills.com/experimenting-with-html-minifier/#collapse_whitespace)
 #' @param conservativeCollapse Always collapse to 1 space (never remove it entirely). Must be used in conjunction with `collapseWhitespace=true`
+#' @param continueOnParseError [Handle parse errors](https://html.spec.whatwg.org/multipage/parsing.html#parse-errors) instead of aborting.
 #' @param customAttrAssign Arrays of regex'es that allow to support custom attribute assign expressions (e.g. `'<div flex?="{{mode != cover}}"></div>'`)
 #' @param customAttrCollapse  Regex that specifies custom attribute to strip newlines from (e.g. `/ng-class/`)
 #' @param customAttrSurround Arrays of regex'es that allow to support custom attribute surround expressions (e.g. `<input {{#if value}}checked="checked"{{/if}}>`)
@@ -53,6 +54,7 @@ minifyHTML = function(input,
                   collapseInlineTagWhitespace = FALSE,
                   collapseWhitespace = TRUE,
                   conservativeCollapse = FALSE,
+                  continueOnParseError = FALSE,
                   customAttrAssign = "[]",
                   customAttrCollapse = NULL,
                   customAttrSurround = "[]",
